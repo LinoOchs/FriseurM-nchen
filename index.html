@@ -1,1081 +1,1623 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Salon Elegance – Friseur München</title>
-<meta name="description" content="Ihr Friseursalon in München. Haarschnitte, Colorationen, Styling und mehr. Jetzt Termin online buchen." />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<style>
-/* ===== RESET & BASE ===== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
---gold: #b8975a;
---gold-lt: #d4b47a;
---dark: #1a1a1a;
---mid: #2e2e2e;
---light: #f8f5f0;
---white: #ffffff;
---text: #444444;
---radius: 10px;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-font-family: 'Inter', sans-serif;
-color: var(--text);
-background: var(--white);
-line-height: 1.7;
-}
-
-h1, h2, h3 {
-font-family: 'Playfair Display', serif;
-color: var(--dark);
-}
-
-a { text-decoration: none; color: inherit; }
-
-img { max-width: 100%; display: block; }
-
-/* ===== NAVIGATION ===== */
-nav {
-position: fixed;
-top: 0; left: 0; right: 0;
-z-index: 100;
-background: rgba(26,26,26,0.96);
-backdrop-filter: blur(10px);
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 0 5%;
-height: 70px;
-}
-
-.nav-logo {
-font-family: 'Playfair Display', serif;
-font-size: 1.4rem;
-color: var(--gold);
-letter-spacing: 0.05em;
-}
-
-.nav-links {
-display: flex;
-gap: 2rem;
-list-style: none;
-}
-
-.nav-links a {
-color: #ccc;
-font-size: 0.9rem;
-font-weight: 500;
-letter-spacing: 0.04em;
-text-transform: uppercase;
-transition: color 0.2s;
-}
-
-.nav-links a:hover { color: var(--gold); }
-
-.nav-cta {
-background: var(--gold);
-color: var(--dark) !important;
-padding: 0.5rem 1.2rem;
-border-radius: 50px;
-font-weight: 600 !important;
-}
-
-.nav-cta:hover { background: var(--gold-lt) !important; color: var(--dark) !important; }
-
-/* Hamburger */
-.hamburger {
-display: none;
-flex-direction: column;
-gap: 5px;
-cursor: pointer;
-background: none;
-border: none;
-padding: 4px;
-}
-.hamburger span {
-display: block;
-width: 24px; height: 2px;
-background: var(--gold);
-border-radius: 2px;
-transition: all 0.3s;
-}
-
-/* ===== HERO ===== */
-.hero {
-min-height: 100vh;
-background: linear-gradient(135deg, #1a1a1a 0%, #2e2011 60%, #1a1a1a 100%);
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center;
-padding: 100px 5% 60px;
-position: relative;
-overflow: hidden;
-}
-
-.hero::before {
-content: '';
-position: absolute;
-inset: 0;
-background: radial-gradient(ellipse at 60% 40%, rgba(184,151,90,0.15) 0%, transparent 60%);
-}
-
-.hero-content { position: relative; z-index: 1; max-width: 750px; }
-
-.hero-badge {
-display: inline-block;
-background: rgba(184,151,90,0.15);
-border: 1px solid rgba(184,151,90,0.4);
-color: var(--gold);
-font-size: 0.8rem;
-font-weight: 600;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-padding: 0.4rem 1.2rem;
-border-radius: 50px;
-margin-bottom: 1.5rem;
-}
-
-.hero h1 {
-font-size: clamp(2.8rem, 6vw, 5rem);
-color: var(--white);
-line-height: 1.15;
-margin-bottom: 1.2rem;
-}
-
-.hero h1 span { color: var(--gold); }
-
-.hero p {
-font-size: 1.15rem;
-color: #b0b0b0;
-max-width: 520px;
-margin: 0 auto 2.5rem;
-}
-
-.hero-buttons {
-display: flex;
-gap: 1rem;
-justify-content: center;
-flex-wrap: wrap;
-}
-
-.btn-primary {
-background: var(--gold);
-color: var(--dark);
-padding: 0.9rem 2rem;
-border-radius: 50px;
-font-weight: 600;
-font-size: 0.95rem;
-transition: background 0.2s, transform 0.2s;
-display: inline-flex;
-align-items: center;
-gap: 0.5rem;
-}
-
-.btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); }
-
-.btn-outline {
-border: 2px solid rgba(184,151,90,0.5);
-color: var(--gold);
-padding: 0.9rem 2rem;
-border-radius: 50px;
-font-weight: 500;
-font-size: 0.95rem;
-transition: all 0.2s;
-}
-
-.btn-outline:hover {
-border-color: var(--gold);
-background: rgba(184,151,90,0.08);
-transform: translateY(-2px);
-}
-
-.hero-stats {
-display: flex;
-justify-content: center;
-gap: 3rem;
-margin-top: 4rem;
-flex-wrap: wrap;
-}
-
-.stat { text-align: center; }
-.stat-number {
-font-family: 'Playfair Display', serif;
-font-size: 2rem;
-color: var(--gold);
-font-weight: 700;
-}
-.stat-label { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 0.08em; }
-
-/* ===== SECTION BASE ===== */
-section { padding: 90px 5%; }
-
-.section-header {
-text-align: center;
-max-width: 580px;
-margin: 0 auto 3.5rem;
-}
-
-.section-tag {
-font-size: 0.78rem;
-font-weight: 600;
-letter-spacing: 0.14em;
-text-transform: uppercase;
-color: var(--gold);
-margin-bottom: 0.7rem;
-}
-
-.section-header h2 {
-font-size: clamp(2rem, 3.5vw, 2.8rem);
-margin-bottom: 1rem;
-}
-
-.section-header p {
-color: #666;
-font-size: 1.05rem;
-}
-
-/* ===== SERVICES ===== */
-.services { background: var(--light); }
-
-.services-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-gap: 1.5rem;
-max-width: 1200px;
-margin: 0 auto;
-}
-
-.service-card {
-background: var(--white);
-border-radius: var(--radius);
-padding: 2rem;
-border: 1px solid #ece8e0;
-transition: transform 0.25s, box-shadow 0.25s;
-}
-
-.service-card:hover {
-transform: translateY(-5px);
-box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-}
-
-.service-icon {
-width: 52px; height: 52px;
-background: linear-gradient(135deg, var(--gold), var(--gold-lt));
-border-radius: 14px;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1.5rem;
-margin-bottom: 1.2rem;
-}
-
-.service-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
-.service-card p { font-size: 0.9rem; color: #666; margin-bottom: 1rem; }
-
-.service-price {
-font-size: 0.88rem;
-color: var(--gold);
-font-weight: 600;
-border-top: 1px solid #ece8e0;
-padding-top: 0.8rem;
-margin-top: auto;
-}
-
-/* ===== TEAM ===== */
-.team-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-gap: 2rem;
-max-width: 1100px;
-margin: 0 auto;
-}
-
-.team-card {
-text-align: center;
-border-radius: var(--radius);
-overflow: hidden;
-border: 1px solid #ece8e0;
-transition: transform 0.25s;
-}
-
-.team-card:hover { transform: translateY(-4px); }
-
-.team-photo {
-height: 260px;
-background: linear-gradient(160deg, #e8dfd0 0%, #d4c9b4 100%);
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 5rem;
-}
-
-.team-info { padding: 1.4rem; }
-.team-info h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
-.team-info p { font-size: 0.88rem; color: var(--gold); font-weight: 500; }
-
-/* ===== GALLERY ===== */
-.gallery { background: var(--dark); }
-.gallery .section-header h2 { color: var(--white); }
-.gallery .section-tag { color: var(--gold-lt); }
-.gallery .section-header p { color: #999; }
-
-.gallery-grid {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-grid-template-rows: 220px 220px;
-gap: 0.75rem;
-max-width: 1100px;
-margin: 0 auto;
-}
-
-.gallery-item {
-border-radius: var(--radius);
-overflow: hidden;
-position: relative;
-}
-
-.gallery-item:first-child {
-grid-row: span 2;
-}
-
-.gallery-placeholder {
-width: 100%; height: 100%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 2.5rem;
-transition: transform 0.3s;
-}
-
-.g1 { background: linear-gradient(135deg, #3a2e1e, #5c4a30); }
-.g2 { background: linear-gradient(135deg, #2e3a2e, #4a5c40); }
-.g3 { background: linear-gradient(135deg, #2e2e3a, #404060); }
-.g4 { background: linear-gradient(135deg, #3a2530, #5c3a48); }
-.g5 { background: linear-gradient(135deg, #3a352e, #5c5040); }
-
-.gallery-item:hover .gallery-placeholder { transform: scale(1.05); }
-
-.gallery-overlay {
-position: absolute;
-inset: 0;
-background: rgba(184,151,90,0);
-display: flex;
-align-items: center;
-justify-content: center;
-color: white;
-font-size: 1.5rem;
-opacity: 0;
-transition: all 0.3s;
-}
-
-.gallery-item:hover .gallery-overlay {
-background: rgba(184,151,90,0.3);
-opacity: 1;
-}
-
-/* ===== BOOKING ===== */
-.booking { background: var(--light); }
-
-.booking-container {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 4rem;
-max-width: 1100px;
-margin: 0 auto;
-align-items: start;
-}
-
-.booking-info h2 {
-font-size: clamp(1.8rem, 3vw, 2.5rem);
-margin-bottom: 1rem;
-}
-
-.booking-info p { color: #666; margin-bottom: 2rem; }
-
-.info-block {
-display: flex;
-flex-direction: column;
-gap: 1.2rem;
-}
-
-.info-item {
-display: flex;
-align-items: flex-start;
-gap: 1rem;
-}
-
-.info-icon {
-width: 42px; height: 42px;
-min-width: 42px;
-background: rgba(184,151,90,0.12);
-border-radius: 10px;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1.1rem;
-}
-
-.info-item h4 { font-size: 0.9rem; font-weight: 600; color: var(--dark); margin-bottom: 0.1rem; }
-.info-item p { font-size: 0.88rem; color: #666; margin: 0; }
-
-.booking-form {
-background: var(--white);
-border-radius: 16px;
-padding: 2.5rem;
-border: 1px solid #ece8e0;
-box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-}
-
-.booking-form h3 {
-font-size: 1.4rem;
-margin-bottom: 1.5rem;
-color: var(--dark);
-}
-
-.form-row {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 1rem;
-margin-bottom: 1rem;
-}
-
-.form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
-
-label { font-size: 0.82rem; font-weight: 600; color: var(--dark); letter-spacing: 0.03em; }
-
-input, select, textarea {
-padding: 0.75rem 1rem;
-border: 1.5px solid #ddd;
-border-radius: var(--radius);
-font-family: 'Inter', sans-serif;
-font-size: 0.92rem;
-color: var(--dark);
-background: var(--white);
-transition: border-color 0.2s;
-outline: none;
-}
-
-input:focus, select:focus, textarea:focus { border-color: var(--gold); }
-
-textarea { resize: vertical; min-height: 90px; }
-
-.btn-submit {
-width: 100%;
-padding: 1rem;
-background: var(--gold);
-color: var(--dark);
-border: none;
-border-radius: 50px;
-font-size: 1rem;
-font-weight: 700;
-cursor: pointer;
-font-family: 'Inter', sans-serif;
-transition: background 0.2s, transform 0.2s;
-margin-top: 0.5rem;
-}
-
-.btn-submit:hover { background: var(--gold-lt); transform: translateY(-2px); }
-
-/* ===== REVIEWS ===== */
-.reviews-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-gap: 1.5rem;
-max-width: 1100px;
-margin: 0 auto;
-}
-
-.review-card {
-background: var(--light);
-border-radius: var(--radius);
-padding: 1.8rem;
-border: 1px solid #ece8e0;
-}
-
-.stars { color: var(--gold); font-size: 1rem; margin-bottom: 0.8rem; }
-
-.review-text {
-font-size: 0.95rem;
-color: #555;
-font-style: italic;
-margin-bottom: 1.2rem;
-line-height: 1.6;
-}
-
-.reviewer { display: flex; align-items: center; gap: 0.8rem; }
-
-.reviewer-avatar {
-width: 40px; height: 40px;
-border-radius: 50%;
-background: linear-gradient(135deg, var(--gold), var(--gold-lt));
-display: flex; align-items: center; justify-content: center;
-font-weight: 700; color: var(--dark); font-size: 0.9rem;
-}
-
-.reviewer-name { font-size: 0.88rem; font-weight: 600; color: var(--dark); }
-.reviewer-date { font-size: 0.78rem; color: #999; }
-
-/* ===== MAP / CONTACT ===== */
-.contact { background: var(--dark); }
-.contact .section-header h2 { color: var(--white); }
-.contact .section-tag { color: var(--gold-lt); }
-
-.contact-grid {
-display: grid;
-grid-template-columns: 1fr 1.4fr;
-gap: 3rem;
-max-width: 1100px;
-margin: 0 auto;
-align-items: start;
-}
-
-.contact-details { color: #ccc; }
-
-.contact-item {
-display: flex;
-gap: 1rem;
-margin-bottom: 1.8rem;
-align-items: flex-start;
-}
-
-.contact-icon {
-width: 44px; height: 44px; min-width: 44px;
-background: rgba(184,151,90,0.15);
-border-radius: 10px;
-display: flex; align-items: center; justify-content: center;
-font-size: 1.1rem;
-}
-
-.contact-item h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 0.2rem; }
-.contact-item p { font-size: 0.92rem; color: #bbb; margin: 0; }
-
-.hours-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-.hours-table td { padding: 0.35rem 0; font-size: 0.9rem; color: #bbb; }
-.hours-table td:last-child { text-align: right; }
-.hours-table tr.today td { color: var(--gold); font-weight: 600; }
-
-.map-placeholder {
-border-radius: 16px;
-overflow: hidden;
-height: 360px;
-background: linear-gradient(135deg, #2a2318, #3d3323);
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-color: #888;
-border: 1px solid rgba(184,151,90,0.2);
-gap: 0.8rem;
-}
-
-.map-placeholder span { font-size: 3rem; }
-.map-placeholder p { font-size: 0.9rem; color: #666; }
-
-.map-btn {
-display: inline-block;
-margin-top: 0.5rem;
-background: var(--gold);
-color: var(--dark);
-padding: 0.65rem 1.5rem;
-border-radius: 50px;
-font-size: 0.88rem;
-font-weight: 600;
-transition: background 0.2s;
-}
-.map-btn:hover { background: var(--gold-lt); }
-
-/* ===== FOOTER ===== */
-footer {
-background: #111;
-color: #666;
-padding: 3rem 5% 2rem;
-}
-
-.footer-inner {
-display: grid;
-grid-template-columns: 2fr 1fr 1fr;
-gap: 3rem;
-max-width: 1100px;
-margin: 0 auto 2.5rem;
-}
-
-.footer-brand .nav-logo { font-size: 1.5rem; display: block; margin-bottom: 0.8rem; }
-.footer-brand p { font-size: 0.88rem; line-height: 1.7; color: #555; max-width: 300px; }
-
-.footer-col h4 {
-font-family: 'Inter', sans-serif;
-font-size: 0.78rem;
-text-transform: uppercase;
-letter-spacing: 0.1em;
-color: #888;
-margin-bottom: 1rem;
-}
-
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-.footer-col a { font-size: 0.88rem; color: #555; transition: color 0.2s; }
-.footer-col a:hover { color: var(--gold); }
-
-.footer-bottom {
-border-top: 1px solid #222;
-padding-top: 1.5rem;
-text-align: center;
-font-size: 0.82rem;
-color: #444;
-max-width: 1100px;
-margin: 0 auto;
-}
-
-.footer-bottom a { color: #555; margin: 0 0.5rem; }
-.footer-bottom a:hover { color: var(--gold); }
-
-/* ===== MOBILE NAV ===== */
-@media (max-width: 768px) {
-.hamburger { display: flex; }
-
-.nav-links {
-display: none;
-position: fixed;
-top: 70px; left: 0; right: 0;
-background: rgba(26,26,26,0.98);
-backdrop-filter: blur(10px);
-flex-direction: column;
-padding: 2rem 5%;
-gap: 1.5rem;
-border-top: 1px solid #333;
-}
-
-.nav-links.open { display: flex; }
-.nav-links a { font-size: 1rem; }
-.nav-cta { text-align: center; }
-
-.booking-container,
-.contact-grid,
-.footer-inner { grid-template-columns: 1fr; gap: 2rem; }
-
-.form-row { grid-template-columns: 1fr; }
-
-.gallery-grid {
-grid-template-columns: 1fr 1fr;
-grid-template-rows: auto;
-}
-
-.gallery-item:first-child { grid-row: span 1; }
-
-.hero-stats { gap: 1.5rem; }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Lucila – Mediterrane Küche & Feinkost | Freiburg</title>
+  <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap)" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #2c2c2c;
+      background: #faf8f5;
+      line-height: 1.7;
+    }
+
+    /* ── Colour Palette ── */
+    :root {
+      --sand:      #faf8f5;
+      --cream:     #f2ede6;
+      --terracotta:#c06b3a;
+      --terra-dark:#9e4f23;
+      --olive:     #6b7a4a;
+      --olive-light:#8a9a5e;
+      --dark:      #1e1e1e;
+      --mid:       #5a5a5a;
+      --light-text:#9a9a9a;
+      --white:     #ffffff;
+      --border:    #e0d9d0;
+    }
+
+    /* ── Utility ── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--mid);
+      max-width: 560px;
+    }
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--terracotta);
+      margin: 1.25rem 0 2rem;
+      border: none;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      border-radius: 3px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: 2px solid transparent;
+    }
+    .btn-primary {
+      background: var(--terracotta);
+      color: var(--white);
+      border-color: var(--terracotta);
+    }
+    .btn-primary:hover {
+      background: var(--terra-dark);
+      border-color: var(--terra-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(192,107,58,0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,0.7);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: var(--white);
+    }
+    .btn-outline-dark {
+      background: transparent;
+      color: var(--dark);
+      border-color: var(--dark);
+    }
+    .btn-outline-dark:hover {
+      background: var(--dark);
+      color: var(--white);
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 1.25rem 0;
+      transition: all 0.35s ease;
+    }
+    nav.scrolled {
+      background: rgba(30,30,30,0.97);
+      backdrop-filter: blur(10px);
+      padding: 0.85rem 0;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .nav-logo span { color: var(--terracotta); }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links .btn { padding: 0.6rem 1.4rem; font-size: 0.8rem; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--white);
+      transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--dark);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--white);
+      text-decoration: none;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+    }
+    .mobile-close {
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(10,8,5,0.55) 0%, rgba(10,8,5,0.4) 60%, rgba(10,8,5,0.7) 100%),
+        url('[images.unsplash.com](https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1800&q=80)') center/cover no-repeat;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      padding: 0 1.5rem;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: #e8c9a8;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.3);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%,100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* ── Info Bar ── */
+    .info-bar {
+      background: var(--dark);
+      padding: 1.25rem 0;
+    }
+    .info-bar-inner {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.85rem;
+    }
+    .info-item svg { color: var(--terracotta); flex-shrink: 0; }
+    .info-item strong { color: var(--white); }
+
+    /* ── About ── */
+    #ueber-uns {
+      padding: 7rem 0;
+      background: var(--white);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    .about-badge {
+      position: absolute;
+      bottom: -2rem;
+      right: -2rem;
+      background: var(--terracotta);
+      color: var(--white);
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .about-badge strong { font-size: 1.6rem; font-family: 'Playfair Display', serif; display: block; }
+    .about-text p { color: var(--mid); margin-bottom: 1.25rem; }
+    .about-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .about-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--cream);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+    .feature-text strong { display: block; font-size: 0.9rem; color: var(--dark); }
+    .feature-text span { font-size: 0.82rem; color: var(--light-text); }
+
+    /* ── Speisekarte ── */
+    #speisekarte {
+      padding: 7rem 0;
+      background: var(--cream);
+    }
+    .menu-header { text-align: center; margin-bottom: 4rem; }
+    .menu-header .section-subtitle { margin: 0 auto; }
+    .menu-header .divider { margin: 1.25rem auto 0; }
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      display: inline-flex;
+      left: 50%;
+      position: relative;
+      transform: translateX(-50%);
+    }
+    .menu-tab {
+      padding: 0.75rem 1.75rem;
+      background: var(--white);
+      border: none;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+      transition: all 0.2s;
+      border-right: 1px solid var(--border);
+      font-family: 'Inter', sans-serif;
+    }
+    .menu-tab:last-child { border-right: none; }
+    .menu-tab.active {
+      background: var(--terracotta);
+      color: var(--white);
+    }
+    .menu-tab:hover:not(.active) { background: var(--cream); }
+    .menu-panel { display: none; }
+    .menu-panel.active { display: block; }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+      gap: 0;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+      transition: background 0.2s;
+      gap: 1rem;
+    }
+    .menu-item:hover { background: #fdf9f5; }
+    .menu-item-info { flex: 1; }
+    .menu-item-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--dark);
+      margin-bottom: 0.3rem;
+    }
+    .menu-item-desc {
+      font-size: 0.82rem;
+      color: var(--light-text);
+      line-height: 1.5;
+    }
+    .menu-item-tags { margin-top: 0.4rem; display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .tag-v { background: #e8f5e0; color: #4a7a30; }
+    .tag-gf { background: #fff3e0; color: #b06020; }
+    .tag-new { background: #fce4ec; color: #c2185b; }
+    .menu-item-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--terracotta);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .menu-note {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-size: 0.85rem;
+      color: var(--light-text);
+    }
+
+    /* ── Atmosphäre ── */
+    #atmosphaere {
+      padding: 7rem 0;
+      background: var(--white);
+    }
+    .gallery-header { margin-bottom: 3rem; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 280px 280px;
+      gap: 1rem;
+    }
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 4px;
+      position: relative;
+    }
+    .gallery-item:first-child {
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
+    }
+    .gallery-item:nth-child(4) { grid-column: 3 / 5; }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+
+    /* ── Reservation ── */
+    #reservieren {
+      padding: 7rem 0;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    #reservieren::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('[images.unsplash.com](https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=80)') center/cover;
+      opacity: 0.15;
+    }
+    .reservation-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .reservation-info .section-title { color: var(--white); }
+    .reservation-info .section-label { color: var(--terracotta); }
+    .reservation-info p { color: rgba(255,255,255,0.65); margin-bottom: 1.25rem; }
+    .contact-items { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.9rem;
+    }
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(192,107,58,0.2);
+      border: 1px solid rgba(192,107,58,0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--terracotta);
+    }
+    .contact-item a { color: inherit; text-decoration: none; }
+    .contact-item a:hover { color: var(--white); }
+    /* Reservation Form */
+    .res-form {
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: 6px;
+    }
+    .res-form h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+    .res-form p { font-size: 0.85rem; color: var(--mid); margin-bottom: 2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 0.5rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--dark);
+      background: var(--sand);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 3px rgba(192,107,58,0.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-submit { width: 100%; padding: 1rem; font-size: 0.9rem; }
+    .form-privacy {
+      font-size: 0.75rem;
+      color: var(--light-text);
+      text-align: center;
+      margin-top: 1rem;
+    }
+    /* Success State */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    .form-success .checkmark {
+      width: 64px;
+      height: 64px;
+      background: #e8f5e0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.8rem;
+    }
+    .form-success h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+    .form-success p { color: var(--mid); font-size: 0.9rem; }
+
+    /* ── Hours ── */
+    #oeffnungszeiten {
+      padding: 7rem 0;
+      background: var(--cream);
+    }
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .hours-table { width: 100%; }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row .day { font-weight: 600; color: var(--dark); }
+    .hours-row .time { color: var(--mid); }
+    .hours-row.closed .time { color: var(--light-text); }
+    .hours-row.today .day { color: var(--terracotta); }
+    .hours-row.today .time { color: var(--terracotta); }
+    .today-badge {
+      font-size: 0.65rem;
+      background: var(--terracotta);
+      color: var(--white);
+      padding: 0.1rem 0.5rem;
+      border-radius: 20px;
+      margin-left: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .hours-note {
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: rgba(192,107,58,0.08);
+      border-left: 3px solid var(--terracotta);
+      border-radius: 0 3px 3px 0;
+      font-size: 0.85rem;
+      color: var(--mid);
+    }
+    .hours-img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    /* ── Location ── */
+    #anfahrt {
+      padding: 7rem 0;
+      background: var(--white);
+    }
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .map-embed {
+      width: 100%;
+      height: 420px;
+      border-radius: 4px;
+      overflow: hidden;
+      border: none;
+    }
+    .location-detail { margin-top: 1rem; }
+    .location-detail p { color: var(--mid); margin-bottom: 2rem; }
+    .location-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .location-card {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.25rem;
+      background: var(--cream);
+      border-radius: 4px;
+    }
+    .location-card-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .location-card strong { display: block; font-size: 0.9rem; color: var(--dark); margin-bottom: 0.25rem; }
+    .location-card span { font-size: 0.85rem; color: var(--mid); }
+
+    /* ── Footer ── */
+    footer {
+      background: #111;
+      padding: 4rem 0 2rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-brand .nav-logo { font-size: 1.8rem; display: block; margin-bottom: 1rem; }
+    .footer-brand p { font-size: 0.85rem; line-height: 1.8; max-width: 280px; }
+    .footer-social { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+    .social-link {
+      width: 38px;
+      height: 38px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .social-link:hover {
+      background: var(--terracotta);
+      color: var(--white);
+    }
+    .footer-col h4 {
+      color: var(--white);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--white); }
+    .footer-bottom {
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.8rem;
+    }
+    .footer-bottom a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--white); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-grid,
+      .hours-grid,
+      .reservation-inner,
+      .location-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-badge { right: 1rem; bottom: -1rem; width: 90px; height: 90px; }
+      .about-badge strong { font-size: 1.2rem; }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .gallery-item:first-child,
+      .gallery-item:nth-child(4) {
+        grid-column: auto;
+        grid-row: auto;
+      }
+      .menu-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .info-bar-inner { gap: 1.5rem; }
+      .about-img { height: 360px; }
+      .hours-img { height: 320px; }
+    }
+
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .about-features { grid-template-columns: 1fr; }
+      .res-form { padding: 1.75rem 1.25rem; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ===== NAV ===== -->
-<nav>
-<span class="nav-logo">Salon Elegance</span>
-<ul class="nav-links" id="navLinks">
-<li><a href="#leistungen">Leistungen</a></li>
-<li><a href="#team">Team</a></li>
-<li><a href="#galerie">Galerie</a></li>
-<li><a href="#bewertungen">Bewertungen</a></li>
-<li><a href="#kontakt">Kontakt</a></li>
-<li><a href="#termin" class="nav-cta">Termin buchen</a></li>
-</ul>
-<button class="hamburger" id="hamburger" aria-label="Menü öffnen">
-<span></span><span></span><span></span>
-</button>
+<!-- ── Navigation ── -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">La <span>Lucila</span></a>
+      <ul class="nav-links">
+        <li><a href="#ueber-uns">Über uns</a></li>
+        <li><a href="#speisekarte">Speisekarte</a></li>
+        <li><a href="#atmosphaere">Atmosphäre</a></li>
+        <li><a href="#oeffnungszeiten">Öffnungszeiten</a></li>
+        <li><a href="#anfahrt">Anfahrt</a></li>
+        <li><a href="#reservieren" class="btn btn-primary">Reservieren</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu öffnen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
 </nav>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
-<div class="hero-content">
-<span class="hero-badge">✦ Friseursalon in München-Mitte</span>
-<h1>Ihr Haar.<br>Ihre <span>Geschichte.</span></h1>
-<p>Professionelles Haarstudio im Herzen Münchens – für Schnitte, Colorationen und Styling, die zu Ihnen passen.</p>
-<div class="hero-buttons">
-<a href="#termin" class="btn-primary">✦ Termin vereinbaren</a>
-<a href="#leistungen" class="btn-outline">Unsere Leistungen</a>
+<!-- ── Mobile Menu ── -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="#ueber-uns" class="mobile-link">Über uns</a>
+  <a href="#speisekarte" class="mobile-link">Speisekarte</a>
+  <a href="#atmosphaere" class="mobile-link">Atmosphäre</a>
+  <a href="#oeffnungszeiten" class="mobile-link">Öffnungszeiten</a>
+  <a href="#anfahrt" class="mobile-link">Anfahrt</a>
+  <a href="#reservieren" class="mobile-link btn btn-primary" style="font-size:1rem;">Reservieren</a>
 </div>
-<div class="hero-stats">
-<div class="stat">
-<div class="stat-number">12+</div>
-<div class="stat-label">Jahre Erfahrung</div>
-</div>
-<div class="stat">
-<div class="stat-number">2.400+</div>
-<div class="stat-label">Zufriedene Kunden</div>
-</div>
-<div class="stat">
-<div class="stat-number">4,9 ★</div>
-<div class="stat-label">Google-Bewertung</div>
-</div>
-</div>
-</div>
+
+<!-- ── Hero ── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Lehener Straße 49 · Freiburg im Breisgau</p>
+    <h1 class="hero-title">
+      Mediterrane Küche &<br><em>echte Lebensfreude</em>
+    </h1>
+    <p class="hero-sub">
+      Frische Tapas, handverlesene Weine und ein Ambiente,<br>
+      das zum Verweilen einlädt. Willkommen bei La Lucila.
+    </p>
+    <div class="hero-buttons">
+      <a href="#reservieren" class="btn btn-primary">Tisch reservieren</a>
+      <a href="#speisekarte" class="btn btn-outline">Speisekarte entdecken</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Entdecken</div>
 </section>
 
-<!-- ===== LEISTUNGEN ===== -->
-<section class="services" id="leistungen">
-<div class="section-header">
-<p class="section-tag">Was wir anbieten</p>
-<h2>Unsere Leistungen</h2>
-<p>Von klassischen Haarschnitten bis zu aufwendigen Colorationen – wir bieten alles für Ihr perfektes Styling.</p>
+<!-- ── Info Bar ── -->
+<div class="info-bar">
+  <div class="container">
+    <div class="info-bar-inner">
+      <div class="info-item">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Di – Do: <strong>18 – 22 Uhr</strong> &nbsp;|&nbsp; Fr – Sa: <strong>18 – 23 Uhr</strong></span>
+      </div>
+      <div class="info-item">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.45 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.52A16 16 0 0 0 16 16.61l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span><strong>+49 761 51467666</strong></span>
+      </div>
+      <div class="info-item">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Lehener Str. 49, <strong>79106 Freiburg</strong></span>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="services-grid">
-<div class="service-card">
-<div class="service-icon">✂️</div>
-<h3>Damen-Haarschnitt</h3>
-<p>Individuell auf Ihre Gesichtsform und Ihren Stil abgestimmt – inkl. Waschen und Föhnen.</p>
-<div class="service-price">ab 45 €</div>
-</div>
-<div class="service-card">
-<div class="service-icon">💈</div>
-<h3>Herren-Haarschnitt</h3>
-<p>Klassisch oder modern – präzise Schnitte für jeden Anlass, inkl. Styling-Beratung.</p>
-<div class="service-price">ab 28 €</div>
-</div>
-<div class="service-card">
-<div class="service-icon">🎨</div>
-<h3>Coloration & Balayage</h3>
-<p>Strahlende Farben, natürliche Übergänge oder komplette Verwandlungen – wir machen es möglich.</p>
-<div class="service-price">ab 75 €</div>
-</div>
-<div class="service-card">
-<div class="service-icon">✨</div>
-<h3>Highlights & Strähnen</h3>
-<p>Mehr Tiefe und Glanz durch professionell gesetzte Highlights – abgestimmt auf Ihre Haarfarbe.</p>
-<div class="service-price">ab 65 €</div>
-</div>
-<div class="service-card">
-<div class="service-icon">💆</div>
-<h3>Haarpflege & Kur</h3>
-<p>Intensive Pflegebehandlungen für geschädigtes, trockenes oder coloriertes Haar.</p>
-<div class="service-price">ab 25 €</div>
-</div>
-<div class="service-card">
-<div class="service-icon">💍</div>
-<h3>Braut-Styling</h3>
-<p>Unvergessliches Styling für den schönsten Tag Ihres Lebens – inkl. Probestyling.</p>
-<div class="service-price">ab 120 €</div>
-</div>
-</div>
+
+<!-- ── Über uns ── -->
+<section id="ueber-uns">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <img
+          class="about-img"
+          src="[images.unsplash.com](https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&q=80)"
+          alt="Mediterrane Gerichte bei La Lucila"
+        />
+        <div class="about-badge">
+          <strong>2025</strong>
+          Seit<br>Frühjahr
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="section-label">Über uns</p>
+        <h2 class="section-title">Eine Leidenschaft für mediterrane Aromen</h2>
+        <hr class="divider" />
+        <p>
+          <strong>Elias Leiser</strong> eröffnete La Lucila im Frühjahr 2025 mit einer klaren Vision: Freiburg einen Ort zu schenken, an dem authentische mediterrane Küche, handverlesene Zutaten und echte Herzlichkeit zusammenkommen.
+        </p>
+        <p>
+          La Lucila ist mehr als ein Restaurant – es ist ein Treffpunkt. Für Menschen, die Genuss und Geselligkeit schätzen. Für den entspannten Aperitivo an der Theke, das besondere Abendessen mit Freunden oder feine Feinkost zum Mitnehmen.
+        </p>
+        <p>
+          Mit Erfahrung aus Spitzenrestaurants und einer tiefen Liebe zur mediterranen Kultur hat Elias einen Ort geschaffen, der Freiburg ein Stück Mittelmeer näherbringt.
+        </p>
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="feature-icon">🫒</div>
+            <div class="feature-text">
+              <strong>Handverlesene Zutaten</strong>
+              <span>Beste Qualität aus dem Mittelmeerraum</span>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">🍷</div>
+            <div class="feature-text">
+              <strong>Kuratierte Weinauswahl</strong>
+              <span>Naturweine & mediterrane Klassiker</span>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">🤝</div>
+            <div class="feature-text">
+              <strong>Herzliche Gastlichkeit</strong>
+              <span>Persönlicher Service mit Herz</span>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">🎉</div>
+            <div class="feature-text">
+              <strong>Events & Private Dining</strong>
+              <span>Für besondere Anlässe</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ===== TEAM ===== -->
-<section id="team">
-<div class="section-header">
-<p class="section-tag">Lernen Sie uns kennen</p>
-<h2>Unser Team</h2>
-<p>Leidenschaftliche Friseure mit Herz, Können und einem Auge für das Besondere.</p>
-</div>
-<div class="team-grid">
-<div class="team-card">
-<div class="team-photo">👩‍🦱</div>
-<div class="team-info">
-<h3>Sophie Maier</h3>
-<p>Inhaberin & Senior-Stylistin</p>
-</div>
-</div>
-<div class="team-card">
-<div class="team-photo">👨‍🦲</div>
-<div class="team-info">
-<h3>Jonas Weber</h3>
-<p>Colorations-Spezialist</p>
-</div>
-</div>
-<div class="team-card">
-<div class="team-photo">👩‍🦰</div>
-<div class="team-info">
-<h3>Lena Hoffmann</h3>
-<p>Styling & Braut-Expertin</p>
-</div>
-</div>
-<div class="team-card">
-<div class="team-photo">🧑‍🎨</div>
-<div class="team-info">
-<h3>Tim Bauer</h3>
-<p>Herren-Spezialist & Barber</p>
-</div>
-</div>
-</div>
+<!-- ── Speisekarte ── -->
+<section id="speisekarte">
+  <div class="container">
+    <div class="menu-header">
+      <p class="section-label">Unsere Karte</p>
+      <h2 class="section-title">Speisekarte</h2>
+      <p class="section-subtitle">Kleine Gerichte voller Charakter – zum Teilen, Genießen und Wiederkommen.</p>
+      <hr class="divider" />
+    </div>
+
+    <div class="menu-tabs">
+      <button class="menu-tab active" data-tab="tapas">Tapas & Antipasti</button>
+      <button class="menu-tab" data-tab="pasta">Pasta & Hauptgerichte</button>
+      <button class="menu-tab" data-tab="feinkost">Feinkost</button>
+      <button class="menu-tab" data-tab="weine">Weine & Aperitivo</button>
+      <button class="menu-tab" data-tab="desserts">Desserts</button>
+    </div>
+
+    <!-- Tapas -->
+    <div class="menu-panel active" id="tab-tapas">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Marinierte Oliven</div>
+            <div class="menu-item-desc">Taggiasca & Gordal Oliven, Zitrusschale, frische Kräuter</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegan</span><span class="tag tag-gf">Glutenfrei</span></div>
+          </div>
+          <div class="menu-item-price">€ 6</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Pan con Tomate</div>
+            <div class="menu-item-desc">Geröstetes Brot, geriebene Tomaten, Knoblauch, Fleur de Sel</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegan</span></div>
+          </div>
+          <div class="menu-item-price">€ 7</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Jamón Ibérico</div>
+            <div class="menu-item-desc">Ibérico Schinken 36 Monate gereift, Picos, Manchego</div>
+            <div class="menu-item-tags"><span class="tag tag-gf">Glutenfrei</span></div>
+          </div>
+          <div class="menu-item-price">€ 18</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Gambas al Ajillo</div>
+            <div class="menu-item-desc">Geröstete Garnelen, Knoblauch, Chili, Olivenöl, Petersilie</div>
+            <div class="menu-item-tags"><span class="tag tag-gf">Glutenfrei</span><span class="tag tag-new">Neu</span></div>
+          </div>
+          <div class="menu-item-price">€ 16</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Burrata con Pomodoro</div>
+            <div class="menu-item-desc">Frische Burrata, Heirloom-Tomaten, Basilikumöl, Balsamico</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegetarisch</span><span class="tag tag-gf">Glutenfrei</span></div>
+          </div>
+          <div class="menu-item-price">€ 15</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Patatas Bravas</div>
+            <div class="menu-item-desc">Knusprige Kartoffeln, hausgemachte Brava-Sauce, Alioli</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegan</span></div>
+          </div>
+          <div class="menu-item-price">€ 9</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Boquerones en Vinagre</div>
+            <div class="menu-item-desc">Marinierte Sardellen, Weißweinessig, Knoblauch, Petersilie</div>
+            <div class="menu-item-tags"><span class="tag tag-gf">Glutenfrei</span></div>
+          </div>
+          <div class="menu-item-price">€ 12</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Tabla de Quesos</div>
+            <div class="menu-item-desc">Drei ausgewählte mediterrane Käsesorten, Feigensenf, Walnüsse</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegetarisch</span><span class="tag tag-gf">Glutenfrei</span></div>
+          </div>
+          <div class="menu-item-price">€ 19</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pasta -->
+    <div class="menu-panel" id="tab-pasta">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Fettuccine al Bronzo</div>
+            <div class="menu-item-desc">Bronzegezogene Fettuccine, Sugo alla Norma, Büffelmozzarella</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegetarisch</span><span class="tag tag-new">Signatur</span></div>
+          </div>
+          <div class="menu-item-price">€ 18</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Spaghetti alle Vongole</div>
+            <div class="menu-item-desc">Venusmuscheln, Weißwein, Knoblauch, Chili, Petersilie</div>
+          </div>
+          <div class="menu-item-price">€ 22</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Risotto ai Funghi Porcini</div>
+            <div class="menu-item-desc">Steinpilz-Risotto, Parmesan 36 Monate, Trüffelöl</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegetarisch</span><span class="tag tag-gf">Glutenfrei</span></div>
+          </div>
+          <div class="menu-item-price">€ 21</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Dorada al Horno</div>
+            <div class="menu-item-desc">Ofengebackene Dorade, Gemüse der Saison, Salsa Verde</div>
+            <div class="menu-item-tags"><span class="tag tag-gf">Glutenfrei</span></div>
+          </div>
+          <div class="menu-item-price">€ 28</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Lomo de Cordero</div>
+            <div class="menu-item-desc">Lammrücken, Auberginenpüree, Granatapfeljus, Minze</div>
+            <div class="menu-item-tags"><span class="tag tag-gf">Glutenfrei</span><span class="tag tag-new">Empfehlung</span></div>
+          </div>
+          <div class="menu-item-price">€ 32</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Cuscus Vegetariano</div>
+            <div class="menu-item-desc">Couscous, gebratenes Gemüse, Harissa, Mandeln, Rosinen</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegan</span></div>
+          </div>
+          <div class="menu-item-price">€ 16</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feinkost -->
+    <div class="menu-panel" id="tab-feinkost">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Arbequina Olivenöl</div>
+            <div class="menu-item-desc">Kaltgepresstes Olivenöl aus Katalonien, 500 ml</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegan</span><span class="tag tag-gf">Glutenfrei</span></div>
+          </div>
+          <div class="menu-item-price">€ 18</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Fleur de Sel de Guérande</div>
+            <div class="menu-item-desc">Handgeschöpftes Meersalz aus der Bretagne, 200 g</div>
+          </div>
+          <div class="menu-item-price">€ 9</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Feigensenf hausgemacht</div>
+            <div class="menu-item-desc">Senf mit getrockneten Feigen & Rosmarin, 120 g</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegan</span></div>
+          </div>
+          <div class="menu-item-price">€ 7</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Piquillo-Paprikamark</div>
+            <div class="menu-item-desc">Geröstete Piquillo-Paprika, eingelegt, 180 g</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegan</span><span class="tag tag-gf">Glutenfrei</span></div>
+          </div>
+          <div class="menu-item-price">€ 8</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Manchego Curado</div>
+            <div class="menu-item-desc">Spanischer Schafskäse, 12 Monate gereift, ca. 200 g</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegetarisch</span><span class="tag tag-gf">Glutenfrei</span></div>
+          </div>
+          <div class="menu-item-price">€ 14</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Lucila Geschenkkorb</div>
+            <div class="menu-item-desc">Kuratierte Auswahl: Öl, Oliven, Käse, Senf & Salz</div>
+            <div class="menu-item-tags"><span class="tag tag-new">Beliebt</span></div>
+          </div>
+          <div class="menu-item-price">ab € 45</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weine -->
+    <div class="menu-panel" id="tab-weine">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Aperol Spritz</div>
+            <div class="menu-item-desc">Aperol, Prosecco, Sodawasser, Orange</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegan</span></div>
+          </div>
+          <div class="menu-item-price">€ 9</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Lucila Spritz</div>
+            <div class="menu-item-desc">Hauseigener Spritz: Weißwein, Yuzu, Holunderblüte</div>
+            <div class="menu-item-tags"><span class="tag tag-new">Signatur</span></div>
+          </div>
+          <div class="menu-item-price">€ 11</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Albariño – Rías Baixas</div>
+            <div class="menu-item-desc">Frischer Weißwein, Galizien, Spanien – Glas / Flasche</div>
+          </div>
+          <div class="menu-item-price">€ 8 / € 34</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Vermentino – Sardinien</div>
+            <div class="menu-item-desc">Mineralisch, frisch mit feiner Bitternote – Glas / Flasche</div>
+          </div>
+          <div class="menu-item-price">€ 9 / € 38</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Tempranillo – Rioja Reserva</div>
+            <div class="menu-item-desc">Elegant, würzig, 18 Monate Barrique – Glas / Flasche</div>
+          </div>
+          <div class="menu-item-price">€ 10 / € 42</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Primitivo – Puglia</div>
+            <div class="menu-item-desc">Vollmundig, dunkle Früchte, sanfte Tannine – Glas / Flasche</div>
+          </div>
+          <div class="menu-item-price">€ 9 / € 39</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Cava Brut Nature</div>
+            <div class="menu-item-desc">Klassischer katalanischer Schaumwein – Glas / Flasche</div>
+          </div>
+          <div class="menu-item-price">€ 8 / € 36</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Hausgemachte Limonade</div>
+            <div class="menu-item-desc">Frische Zitrone, Minze, Agavensirup</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegan</span></div>
+          </div>
+          <div class="menu-item-price">€ 5</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desserts -->
+    <div class="menu-panel" id="tab-desserts">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Crema Catalana</div>
+            <div class="menu-item-desc">Klassische katalanische Creme, karamellisierter Zucker, Orangenschale</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegetarisch</span><span class="tag tag-gf">Glutenfrei</span></div>
+          </div>
+          <div class="menu-item-price">€ 8</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Affogato al Caffè</div>
+            <div class="menu-item-desc">Vanilleeis, doppelter Espresso, optional Amaretto</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegetarisch</span><span class="tag tag-gf">Glutenfrei</span></div>
+          </div>
+          <div class="menu-item-price">€ 7</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Panna Cotta con Fichi</div>
+            <div class="menu-item-desc">Vanille-Panna-Cotta, karamellisierte Feigen, Pistazien</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegetarisch</span><span class="tag tag-gf">Glutenfrei</span></div>
+          </div>
+          <div class="menu-item-price">€ 9</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Churros con Chocolate</div>
+            <div class="menu-item-desc">Hausgemachte Churros, dunkle Schokoladensauce, Zimt</div>
+            <div class="menu-item-tags"><span class="tag tag-v">Vegetarisch</span></div>
+          </div>
+          <div class="menu-item-price">€ 8</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="menu-note">
+      🌱 Vegan &nbsp;·&nbsp; V Vegetarisch &nbsp;·&nbsp; GF Glutenfrei &nbsp;·&nbsp;
+      Allergene auf Anfrage. Karte kann saisonal variieren.
+    </p>
+  </div>
 </section>
 
-<!-- ===== GALERIE ===== -->
-<section class="gallery" id="galerie">
-<div class="section-header">
-<p class="section-tag">Unsere Arbeit</p>
-<h2>Galerie</h2>
-<p>Einblicke in unsere Arbeit – ersetzen Sie die Bilder durch Ihre eigenen Fotos.</p>
-</div>
-<div class="gallery-grid">
-<div class="gallery-item">
-<div class="gallery-placeholder g1">✂️</div>
-<div class="gallery-overlay">🔍</div>
-</div>
-<div class="gallery-item">
-<div class="gallery-placeholder g2">💇</div>
-<div class="gallery-overlay">🔍</div>
-</div>
-<div class="gallery-item">
-<div class="gallery-placeholder g3">🎨</div>
-<div class="gallery-overlay">🔍</div>
-</div>
-<div class="gallery-item">
-<div class="gallery-placeholder g4">✨</div>
-<div class="gallery-overlay">🔍</div>
-</div>
-<div class="gallery-item">
-<div class="gallery-placeholder g5">💍</div>
-<div class="gallery-overlay">🔍</div>
-</div>
-</div>
+<!-- ── Atmosphäre ── -->
+<section id="atmosphaere">
+  <div class="container">
+    <div class="gallery-header">
+      <p class="section-label">Einblicke</p>
+      <h2 class="section-title">Atmosphäre & Ambiente</h2>
+      <hr class="divider" />
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=80)" alt="Restaurantatmosphäre La Lucila" />
+        <div class="gallery-item-overlay"></div>
+      </div>
+      <div class="gallery-item">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1574966739987-65e9f4a5b9e7?w=600&q=80)" alt="Tapas und Antipasti" />
+        <div class="gallery-item-overlay"></div>
+      </div>
+      <div class="gallery-item">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80)" alt="Weinauswahl" />
+        <div class="gallery-item-overlay"></div>
+      </div>
+      <div class="gallery-item">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1544025162-d76694265947?w=900&q=80)" alt="Mediterrane Küche" />
+        <div class="gallery-item-overlay"></div>
+      </div>
+      <div class="gallery-item">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=600&q=80)" alt="Aperitivo" />
+        <div class="gallery-item-overlay"></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ===== TERMINBUCHUNG ===== -->
-<section class="booking" id="termin">
-<div class="booking-container">
-<div class="booking-info">
-<p class="section-tag">Online buchen</p>
-<h2>Termin vereinbaren</h2>
-<p>Buchen Sie Ihren Wunschtermin bequem online. Wir melden uns innerhalb von 2 Stunden zur Bestätigung.</p>
-<div class="info-block">
-<div class="info-item">
-<div class="info-icon">📍</div>
-<div>
-<h4>Adresse</h4>
-<p>Musterstraße 12, 80331 München</p>
-</div>
-</div>
-<div class="info-item">
-<div class="info-icon">📞</div>
-<div>
-<h4>Telefon</h4>
-<p>089 / 123 456 78</p>
-</div>
-</div>
-<div class="info-item">
-<div class="info-icon">📧</div>
-<div>
-<h4>E-Mail</h4>
-<p>info@salon-elegance-muenchen.de</p>
-</div>
-</div>
-<div class="info-item">
-<div class="info-icon">💬</div>
-<div>
-<h4>WhatsApp</h4>
-<p>0176 / 123 456 78</p>
-</div>
-</div>
-</div>
-</div>
+<!-- ── Reservierung ── -->
+<section id="reservieren">
+  <div class="container">
+    <div class="reservation-inner">
+      <div class="reservation-info">
+        <p class="section-label">Tisch buchen</p>
+        <h2 class="section-title">Reservieren Sie Ihren Tisch</h2>
+        <hr class="divider" style="background:rgba(192,107,58,0.6);" />
+        <p>
+          Wir freuen uns, Sie bei La Lucila begrüßen zu dürfen. Reservieren Sie Ihren Tisch bequem online – oder kontaktieren Sie uns direkt.
+        </p>
+        <p>
+          Für Gruppen ab 8 Personen oder besondere Anlässe sprechen Sie uns bitte telefonisch an.
+        </p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.45 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.52A16 16 0 0 0 16 16.61l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <strong style="color:white;font-size:.9rem;">Telefon</strong>
+              <a href="tel:+4976151467666">+49 761 51467666</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <strong style="color:white;font-size:.9rem;">E-Mail</strong>
+              <a href="mailto:info@lalucila.de">info@lalucila.de</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <strong style="color:white;font-size:.9rem;">Öffnungszeiten</strong>
+              <span>Di – Do 18 – 22 Uhr &nbsp;|&nbsp; Fr – Sa 18 – 23 Uhr</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<div class="booking-form">
-<h3>Termin anfragen</h3>
-<div class="form-row">
-<div class="form-group">
-<label for="fname">Vorname</label>
-<input type="text" id="fname" placeholder="Max" required />
-</div>
-<div class="form-group">
-<label for="lname">Nachname</label>
-<input type="text" id="lname" placeholder="Mustermann" required />
-</div>
-</div>
-<div class="form-group">
-<label for="email">E-Mail-Adresse</label>
-<input type="email" id="email" placeholder="max@beispiel.de" required />
-</div>
-<div class="form-group">
-<label for="phone">Telefon (optional)</label>
-<input type="tel" id="phone" placeholder="089 / ..." />
-</div>
-<div class="form-row">
-<div class="form-group">
-<label for="service">Leistung</label>
-<select id="service" required>
-<option value="" disabled selected>Bitte wählen</option>
-<option>Damen-Haarschnitt</option>
-<option>Herren-Haarschnitt</option>
-<option>Coloration / Balayage</option>
-<option>Highlights & Strähnen</option>
-<option>Haarpflege & Kur</option>
-<option>Braut-Styling</option>
-<option>Sonstiges</option>
-</select>
-</div>
-<div class="form-group">
-<label for="date">Wunschdatum</label>
-<input type="date" id="date" required />
-</div>
-</div>
-<div class="form-group">
-<label for="message">Anmerkungen</label>
-<textarea id="message" placeholder="Besondere Wünsche, bevorzugte Uhrzeit …"></textarea>
-</div>
-<button type="button" class="btn-submit" onclick="handleSubmit()">✦ Termin anfragen</button>
-</div>
-</div>
+      <!-- Form -->
+      <div class="res-form">
+        <div id="formContent">
+          <h3>Tisch reservieren</h3>
+          <p>Wir bestätigen Ihre Reservierung per E-Mail oder Telefon.</p>
+          <form id="reservationForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">Vorname *</label>
+                <input type="text" id="fname" name="fname" placeholder="Maria" required />
+              </div>
+              <div class="form-group">
+                <label for="lname">Nachname *</label>
+                <input type="text" id="lname" name="lname" placeholder="Müller" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">E-Mail *</label>
+                <input type="email" id="email" name="email" placeholder="maria@beispiel.de" required />
+              </div>
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" name="phone" placeholder="+49 123 456789" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="date">Datum *</label>
+                <input type="date" id="date" name="date" required />
+              </div>
+              <div class="form-group">
+                <label for="time">Uhrzeit *</label>
+                <select id="time" name="time" required>
+                  <option value="">– bitte wählen –</option>
+                  <option>18:00</option><option>18:30</option>
+                  <option>19:00</option><option>19:30</option>
+                  <option>20:00</option><option>20:30</option>
+                  <option>21:00</option><option>21:30</option>
+                  <option>22:00 (Fr & Sa)</option><option>22:30 (Fr & Sa)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="guests">Anzahl Gäste *</label>
+              <select id="guests" name="guests" required>
+                <option value="">– bitte wählen –</option>
+                <option>1 Person</option><option>2 Personen</option>
+                <option>3 Personen</option><option>4 Personen</option>
+                <option>5 Personen</option><option>6 Personen</option>
+                <option>7 Personen</option>
+                <option>8+ Personen (bitte anrufen)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="notes">Besondere Wünsche</label>
+              <textarea id="notes" name="notes" placeholder="Allergien, Geburtstag, besondere Anlässe …"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">Reservierung anfragen</button>
+            <p class="form-privacy">Mit der Anfrage stimmen Sie der Verarbeitung Ihrer Daten zum Zweck der Reservierungsbearbeitung zu.</p>
+          </form>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="checkmark">✓</div>
+          <h4>Vielen Dank!</h4>
+          <p>Ihre Reservierungsanfrage ist eingegangen. Wir melden uns in Kürze bei Ihnen zur Bestätigung.</p>
+          <p style="margin-top:0.5rem;">Bei Fragen: <strong>+49 761 51467666</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ===== BEWERTUNGEN ===== -->
-<section id="bewertungen">
-<div class="section-header">
-<p class="section-tag">Was Kunden sagen</p>
-<h2>Bewertungen</h2>
-<p>Über 200 begeisterte Kunden auf Google – hier ein paar Stimmen.</p>
-</div>
-<div class="reviews-grid">
-<div class="review-card">
-<div class="stars">★★★★★</div>
-<p class="review-text">„Absolut professionell und herzlich. Sophie hat genau verstanden, was ich wollte – das Ergebnis ist fantastisch!"</p>
-<div class="reviewer">
-<div class="reviewer-avatar">AM</div>
-<div>
-<div class="reviewer-name">Anna M.</div>
-<div class="reviewer-date">vor 2 Wochen · Google</div>
-</div>
-</div>
-</div>
-<div class="review-card">
-<div class="stars">★★★★★</div>
-<p class="review-text">„Endlich ein Friseur, der auch mit Herrenschnitten wirklich Ahnung hat. Tim ist super – werde auf jeden Fall wiederkommen."</p>
-<div class="reviewer">
-<div class="reviewer-avatar">FK</div>
-<div>
-<div class="reviewer-name">Felix K.</div>
-<div class="reviewer-date">vor 1 Monat · Google</div>
-</div>
-</div>
-</div>
-<div class="review-card">
-<div class="stars">★★★★★</div>
-<p class="review-text">„Das Braut-Styling war ein Traum! Lena hat sich so viel Zeit genommen und alles perfekt umgesetzt. Danke von Herzen!"</p>
-<div class="reviewer">
-<div class="reviewer-avatar">JB</div>
-<div>
-<div class="reviewer-name">Julia B.</div>
-<div class="reviewer-date">vor 3 Monaten · Google</div>
-</div>
-</div>
-</div>
-</div>
+<!-- ── Öffnungszeiten ── -->
+<section id="oeffnungszeiten">
+  <div class="container">
+    <div class="hours-grid">
+      <div>
+        <p class="section-label">Wann wir für Sie da sind</p>
+        <h2 class="section-title">Öffnungszeiten</h2>
+        <hr class="divider" />
+        <div class="hours-table">
+          <div class="hours-row closed">
+            <span class="day">Montag</span>
+            <span class="time">Ruhetag</span>
+          </div>
+          <div class="hours-row">
+            <span class="day">Dienstag</span>
+            <span class="time">18:00 – 22:00 Uhr</span>
+          </div>
+          <div class="hours-row">
+            <span class="day">Mittwoch</span>
+            <span class="time">18:00 – 22:00 Uhr</span>
+          </div>
+          <div class="hours-row">
+            <span class="day">Donnerstag</span>
+            <span class="time">18:00 – 22:00 Uhr</span>
+          </div>
+          <div class="hours-row">
+            <span class="day">Freitag</span>
+            <span class="time">18:00 – 23:00 Uhr</span>
+          </div>
+          <div class="hours-row">
+            <span class="day">Samstag</span>
+            <span class="time">18:00 – 23:00 Uhr</span>
+          </div>
+          <div class="hours-row closed">
+            <span class="day">Sonntag</span>
+            <span class="time">Ruhetag</span>
+          </div>
+        </div>
+        <div class="hours-note">
+          ℹ️ Das Mittagessen ist derzeit wegen Personalmangels vorübergehend ausgesetzt. Wir arbeiten daran, es bald wieder anzubieten.
+        </div>
+      </div>
+      <div>
+        <img
+          class="hours-img"
+          src="[images.unsplash.com](https://images.unsplash.com/photo-1600891964092-4316c288032e?w=900&q=80)"
+          alt="Ambientes Licht im La Lucila"
+        />
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ===== KONTAKT & KARTE ===== -->
-<section class="contact" id="kontakt">
-<div class="section-header">
-<p class="section-tag">So finden Sie uns</p>
-<h2>Kontakt & Anfahrt</h2>
-</div>
-<div class="contact-grid">
-<div class="contact-details">
-<div class="contact-item">
-<div class="contact-icon">📍</div>
-<div>
-<h4>Adresse</h4>
-<p>Musterstraße 12<br>80331 München<br>U3/U6 Marienplatz (3 Min. Fußweg)</p>
-</div>
-</div>
-<div class="contact-item">
-<div class="contact-icon">🕐</div>
-<div>
-<h4>Öffnungszeiten</h4>
-<table class="hours-table">
-<tr><td>Montag</td><td>09:00 – 19:00</td></tr>
-<tr><td>Dienstag</td><td>09:00 – 19:00</td></tr>
-<tr><td>Mittwoch</td><td>09:00 – 19:00</td></tr>
-<tr><td>Donnerstag</td><td>09:00 – 20:00</td></tr>
-<tr class="today"><td>Freitag ✦</td><td>09:00 – 20:00</td></tr>
-<tr><td>Samstag</td><td>08:00 – 17:00</td></tr>
-<tr><td>Sonntag</td><td>Geschlossen</td></tr>
-</table>
-</div>
-</div>
-</div>
-<div class="map-placeholder">
-<span>🗺️</span>
-<p>Google Maps hier einbetten –<br>iframe mit Ihrer echten Adresse ersetzen</p>
-<a class="map-btn" href="https://maps.google.com?q=Marienplatz+München" target="_blank" rel="noopener">
-In Google Maps öffnen →
-</a>
-</div>
-</div>
+<!-- ── Anfahrt ── -->
+<section id="anfahrt">
+  <div class="container">
+    <div class="location-grid">
+      <div>
+        <p class="section-label">Uns finden</p>
+        <h2 class="section-title">Anfahrt & Lage</h2>
+        <hr class="divider" />
+        <div class="location-detail">
+          <p>La Lucila befindet sich im lebhaften Stühlinger-Viertel von Freiburg – gut erreichbar mit Bus, Bahn oder Fahrrad.</p>
+        </div>
+        <div class="location-cards">
+          <div class="location-card">
+            <div class="location-card-icon">📍</div>
+            <div>
+              <strong>Adresse</strong>
+              <span>Lehener Straße 49, 79106 Freiburg im Breisgau</span>
+            </div>
+          </div>
+          <div class="location-card">
+            <div class="location-card-icon">🚋</div>
+            <div>
+              <strong>Öffentliche Verkehrsmittel</strong>
+              <span>Straßenbahn Linie 3 & 5, Haltestelle Holbeinstraße (5 Min. Fußweg)</span>
+            </div>
+          </div>
+          <div class="location-card">
+            <div class="location-card-icon">🚲</div>
+            <div>
+              <strong>Fahrrad & Fußweg</strong>
+              <span>Ca. 10 Minuten vom Freiburger Hauptbahnhof zu Fuß</span>
+            </div>
+          </div>
+          <div class="location-card">
+            <div class="location-card-icon">🚗</div>
+            <div>
+              <strong>Mit dem Auto</strong>
+              <span>Parkmöglichkeiten in der Lehener Straße und umliegenden Straßen</span>
+            </div>
+          </div>
+        </div>
+        <br>
+        <a
+          href="[maps.google.com](https://maps.google.com/?q=Lehener+Stra%C3%9Fe+49,+79106+Freiburg+im+Breisgau)"
+          target="_blank"
+          rel="noopener"
+          class="btn btn-outline-dark"
+        >In Google Maps öffnen</a>
+      </div>
+      <div>
+        <iframe
+          class="map-embed"
+          src="[google.com](https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2634.6!2d7.83!3d47.997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47911b76f0b97b4f%3A0x0!2sLehener+Str.+49%2C+79106+Freiburg+im+Breisgau!5e0!3m2!1sde!2sde!4v1)"
+          allowfullscreen=""
+          loading="lazy"
+          title="La Lucila Standort"
+        ></iframe>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
+<!-- ── Footer ── -->
 <footer>
-<div class="footer-inner">
-<div class="footer-brand">
-<span class="nav-logo">Salon Elegance</span>
-<p>Ihr Friseursalon im Herzen Münchens – für Haarschnitte, Colorationen und Styling, die zu Ihnen passen.</p>
-</div>
-<div class="footer-col">
-<h4>Navigation</h4>
-<ul>
-<li><a href="#leistungen">Leistungen</a></li>
-<li><a href="#team">Team</a></li>
-<li><a href="#galerie">Galerie</a></li>
-<li><a href="#bewertungen">Bewertungen</a></li>
-<li><a href="#termin">Termin buchen</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h4>Rechtliches</h4>
-<ul>
-<li><a href="#">Impressum</a></li>
-<li><a href="#">Datenschutz</a></li>
-<li><a href="#">Cookie-Richtlinie</a></li>
-<li><a href="#">AGB</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-bottom">
-<p>© 2026 Salon Elegance München · Alle Rechte vorbehalten ·
-<a href="#">Impressum</a> ·
-<a href="#">Datenschutz</a>
-</p>
-</div>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#hero" class="nav-logo">La <span>Lucila</span></a>
+        <p>Mediterrane Küche, handverlesene Feinkost und echte Herzlichkeit – im Herzen von Freiburg im Breisgau.</p>
+        <div class="footer-social">
+          <a href="[instagram.com](https://www.instagram.com/la_lucila_freiburg/)" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="mailto:info@lalucila.de" class="social-link" aria-label="E-Mail">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+          <a href="tel:+4976151467666" class="social-link" aria-label="Telefon">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.45 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.52A16 16 0 0 0 16 16.61l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#ueber-uns">Über uns</a></li>
+          <li><a href="#speisekarte">Speisekarte</a></li>
+          <li><a href="#atmosphaere">Atmosphäre</a></li>
+          <li><a href="#oeffnungszeiten">Öffnungszeiten</a></li>
+          <li><a href="#reservieren">Reservieren</a></li>
+          <li><a href="#anfahrt">Anfahrt</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="tel:+4976151467666">+49 761 51467666</a></li>
+          <li><a href="mailto:info@lalucila.de">info@lalucila.de</a></li>
+          <li><a href="[maps.google.com](https://maps.google.com/?q=Lehener+Stra%C3%9Fe+49,+79106+Freiburg)" target="_blank">Lehener Str. 49<br>79106 Freiburg</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 La Lucila · Elias Leiser · Alle Rechte vorbehalten</span>
+      <span>
+        <a href="#">Impressum</a> &nbsp;·&nbsp;
+        <a href="#">Datenschutz</a>
+      </span>
+    </div>
+  </div>
 </footer>
 
-<!-- ===== JS ===== -->
+<!-- ── Scripts ── -->
 <script>
-// Mobile Nav
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
 
-hamburger.addEventListener('click', () => {
-navLinks.classList.toggle('open');
-});
+  // Mobile menu
+  const hamburger = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileClose = document.getElementById('mobileClose');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
 
-navLinks.querySelectorAll('a').forEach(link => {
-link.addEventListener('click', () => navLinks.classList.remove('open'));
-});
+  hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  mobileLinks.forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
 
-// Form submission
-function handleSubmit() {
-const btn = document.querySelector('.btn-submit');
-btn.textContent = '✓ Anfrage gesendet!';
-btn.style.background = '#4caf50';
-btn.disabled = true;
-}
+  // Menu tabs
+  document.querySelectorAll('.menu-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+  });
 
-// Animate on scroll
-const observer = new IntersectionObserver((entries) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) entry.target.style.opacity = '1';
-});
-}, { threshold: 0.1 });
+  // Set min date for reservation
+  const dateInput = document.getElementById('date');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.setAttribute('min', today);
 
-document.querySelectorAll('.service-card, .team-card, .review-card').forEach(el => {
-el.style.opacity = '0';
-el.style.transition = 'opacity 0.5s ease';
-observer.observe(el);
-});
+  // Highlight today in hours
+  const days = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+  const todayName = days[new Date().getDay()];
+  document.querySelectorAll('.hours-row').forEach(row => {
+    const dayEl = row.querySelector('.day');
+    if (dayEl && dayEl.textContent.trim() === todayName) {
+      row.classList.add('today');
+      dayEl.innerHTML += '<span class="today-badge">Heute</span>';
+    }
+  });
+
+  // Form submission
+  document.getElementById('reservationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const required = this.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(field => {
+      if (!field.value.trim()) {
+        field.style.borderColor = '#e53935';
+        valid = false;
+      } else {
+        field.style.borderColor = '';
+      }
+    });
+    if (!valid) return;
+
+    // Simulate submission
+    document.getElementById('formContent').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  });
 </script>
-
 </body>
 </html>
